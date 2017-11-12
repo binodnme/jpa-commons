@@ -40,7 +40,7 @@ class FilterUtilsTest {
         List<FilterUnit> filterUnits = Arrays.asList(new FilterUnit("name", "haku"), new FilterUnit("address", "ktm"));
 
         //when
-        Stream<FilterUnit> usableFilterUnits = FilterUtils.getUsableFilterUnits(filterUnits, User.class);
+        Stream<FilterUnit> usableFilterUnits = FilterUtils.getValidFilterUnits(filterUnits, User.class);
         long count = usableFilterUnits.count();
 
         //then
@@ -57,7 +57,7 @@ class FilterUtilsTest {
         Field[] filterableFields = {User.class.getDeclaredField("address"), User.class.getDeclaredField("age")};
 
         //when
-        boolean usable = FilterUtils.isUsable(filterUnit, Arrays.asList(filterableFields));
+        boolean usable = FilterUtils.isValid(filterUnit, Arrays.asList(filterableFields));
 
         //then
         assertTrue(usable);

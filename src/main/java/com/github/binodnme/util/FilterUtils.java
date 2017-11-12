@@ -18,19 +18,33 @@ public class FilterUtils {
     private FilterUtils() {
     }
 
+
+    /**
+     * Returns stream of fields that are annotated with {@link Filterable}
+     *
+     * @param classType Entity
+     * @return Stream of Field
+     */
     public static Stream<Field> getFilterableFields(Class classType) {
         return Arrays.stream(classType.getDeclaredFields())
                 .filter(field -> field.getAnnotation(Filterable.class) != null);
     }
 
-    public static Stream<FilterUnit> getUsableFilterUnits(List<FilterUnit> filterUnits, Class classType) {
+
+    /**
+     * Returns the valid filterable units
+     * @param filterUnits list of filter unit
+     * @param classType Entity
+     * @return valid filterable units
+     */
+    public static Stream<FilterUnit> getValidFilterUnits(List<FilterUnit> filterUnits, Class classType) {
         List<Field> filterableFieldsList = getFilterableFields(classType).collect(toList());
 
         return filterUnits.stream()
-                .filter(filterUnit -> isUsable(filterUnit, filterableFieldsList));
+                .filter(filterUnit -> isValid(filterUnit, filterableFieldsList));
     }
 
-    static boolean isUsable(FilterUnit filterUnit, List<Field> filterableFields) {
+    static boolean isValid(FilterUnit filterUnit, List<Field> filterableFields) {
         return filterableFields.stream()
                 .anyMatch(field -> field.getName().equalsIgnoreCase(filterUnit.getKey()));
     }

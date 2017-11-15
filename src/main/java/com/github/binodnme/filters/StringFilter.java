@@ -1,4 +1,4 @@
-package com.github.binodnme.filter;
+package com.github.binodnme.filters;
 
 import com.github.binodnme.pojo.FilterUnit;
 

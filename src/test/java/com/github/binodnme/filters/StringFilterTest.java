@@ -1,15 +1,12 @@
-package com.github.binodnme.filter;
+package com.github.binodnme.filters;
 
 import com.github.binodnme.pojo.FilterUnit;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 
-import javax.annotation.security.RunAs;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 /**

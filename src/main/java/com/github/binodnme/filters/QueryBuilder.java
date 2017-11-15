@@ -1,4 +1,4 @@
-package com.github.binodnme.filter;
+package com.github.binodnme.filters;
 
 import com.github.binodnme.exception.InvalidFilterUnitException;
 import com.github.binodnme.exception.UnsupportedTypeException;
@@ -35,7 +35,7 @@ public class QueryBuilder {
         this.em = em;
     }
 
-    public TypedQuery build(List<FilterUnit> filters, Class entity) {
+    public <T> TypedQuery<T> getQuery(List<FilterUnit> filters, Class<T> entity) {
         this.entity = entity;
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(this.entity);
@@ -51,6 +51,11 @@ public class QueryBuilder {
         return em.createQuery(criteriaQuery);
     }
 
+
+    public <T> List<T> getResultSet(List<FilterUnit> filters, Class<T> entity) {
+        TypedQuery<T> query = this.getQuery(filters, entity);
+        return query.getResultList();
+    }
 
     private Predicate[] buildPredicates(Stream<FilterUnit> validFilterUnits) {
         List<Predicate> predicates = validFilterUnits.map(this::buildPredicate)
